@@ -300,25 +300,25 @@ function sleep(ms) {
 
 
 async function typewriterEffect() {
+    for (let i = 0; i < lyrics.length; i++) {
 
-    for (const [line, charDelay, lineDelay] of lyrics) {
+        const line = lyrics[i][0];
+        const charDelay = lyrics[i][1];
+        const lineDelay = lyrics[i][2];
 
-        let text = "";
+        lyricElement.textContent = "";
 
-        for (const char of line) {
+        for (let j = 0; j < line.length; j++) {
+            lyricElement.textContent += line[j];
 
-            text += char;
-
-            lyricElement.textContent = text;
-
-            await sleep(
-                charDelay * 1000
-            );
+            await new Promise(resolve => {
+                setTimeout(resolve, charDelay * 1000);
+            });
         }
 
-        await sleep(
-            lineDelay * 1000
-        );
+        await new Promise(resolve => {
+            setTimeout(resolve, lineDelay * 1000);
+        });
 
         lyricElement.textContent = "";
     }
